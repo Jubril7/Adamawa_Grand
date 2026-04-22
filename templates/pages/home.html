@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Adamawa Grand Hotel & Suites — Yola, Nigeria{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+  {% if slides %}
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for slide in slides %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="hero-slide" style="background-image: url('{{ slide.image.url }}');">
+              <div class="hero-overlay"></div>
+              <div class="hero-content">
+                <h1 class="hero-title">{{ slide.title }}</h1>
+                {% if slide.subtitle %}<p class="hero-subtitle">{{ slide.subtitle }}</p>{% endif %}
+                <a href="{% url 'rooms:list' %}" class="btn btn-gold btn-lg mt-3">View Rooms</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% if slides.count > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="hero-default">
+      <div class="hero-overlay"></div>
+      <div class="hero-content text-center">
+        <p class="hero-eyebrow">Welcome to</p>
+        <h1 class="hero-title">Adamawa Grand Hotel & Suites</h1>
+        <p class="hero-subtitle">Luxury & Comfort in the Heart of Yola, Adamawa State</p>
+        <a href="{% url 'rooms:list' %}" class="btn btn-gold btn-lg mt-3 me-2">Explore Rooms</a>
+        <a href="{% url 'pages:contact' %}" class="btn btn-outline-light btn-lg mt-3">Contact Us</a>
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<!-- Features Strip -->
+<section class="features-strip py-4">
+  <div class="container">
+    <div class="row g-3 text-center">
+      <div class="col-6 col-md-3">
+        <div class="feature-item">
+          <i class="bi bi-wifi feature-icon"></i>
+          <span>Free WiFi</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="feature-item">
+          <i class="bi bi-cup-hot feature-icon"></i>
+          <span>Restaurant & Bar</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="feature-item">
+          <i class="bi bi-car-front feature-icon"></i>
+          <span>Free Parking</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="feature-item">
+          <i class="bi bi-shield-check feature-icon"></i>
+          <span>24/7 Security</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Rooms -->
+<section class="section-rooms py-6">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <p class="section-eyebrow">Accommodations</p>
+      <h2 class="section-title">Our Rooms & Suites</h2>
+      <p class="section-subtitle text-muted">Thoughtfully designed spaces for your comfort and relaxation</p>
+    </div>
+    {% if featured_rooms %}
+      <div class="row g-4">
+        {% for room in featured_rooms %}
+          <div class="col-md-6 col-lg-4">
+            <div class="room-card">
+              <div class="room-card-image">
+                {% if room.image %}
+                  <img src="{{ room.image.url }}" alt="Room {{ room.room_number }}" class="img-fluid">
+                {% else %}
+                  <div class="room-card-placeholder">
+                    <i class="bi bi-building"></i>
+                  </div>
+                {% endif %}
+                <span class="room-type-badge">{{ room.room_type }}</span>
+              </div>
+              <div class="room-card-body">
+                <h5 class="room-card-title">Room {{ room.room_number }}</h5>
+                <p class="room-card-desc">{{ room.description|truncatewords:18 }}</p>
+                <div class="room-card-meta">
+                  <span><i class="bi bi-people me-1"></i>{{ room.capacity }} Guests</span>
+                  <span><i class="bi bi-layers me-1"></i>Floor {{ room.floor }}</span>
+                </div>
+                <div class="room-card-footer">
+                  <div class="room-price">
+                    <span class="price-amount">₦{{ room.price_per_night|floatformat:"0" }}</span>
+                    <span class="price-unit"> / night</span>
+                  </div>
+                  <a href="{% url 'rooms:detail' room.pk %}" class="btn btn-outline-gold btn-sm">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-5">
+        <a href="{% url 'rooms:list' %}" class="btn btn-gold px-5">View All Rooms</a>
+      </div>
+    {% else %}
+      <div class="text-center py-5">
+        <i class="bi bi-building display-4 text-muted"></i>
+        <p class="mt-3 text-muted">Rooms coming soon. Please check back later.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- About Snippet -->
+<section class="about-snippet py-6 bg-light-warm">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="about-image-grid">
+          <div class="about-img-main">
+            <img src="{% static 'images/about-hotel.jpg' %}" alt="Adamawa Grand Hotel" class="img-fluid rounded" onerror="this.style.display='none'">
+            <div class="about-img-fallback rounded">
+              <i class="bi bi-buildings display-1 text-muted"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <p class="section-eyebrow">About Our Hotel</p>
+        <h2 class="section-title">The Finest Hospitality in Adamawa State</h2>
+        <p class="text-muted mt-3">
+          Nestled in the vibrant city of Yola, Adamawa Grand Hotel & Suites offers a blend of modern comfort
+          and warm Nigerian hospitality. Whether you are here for business or leisure, we provide an experience
+          that reflects the rich culture and heritage of Adamawa State.
+        </p>
+        <ul class="about-highlights mt-3">
+          <li><i class="bi bi-check-circle-fill text-gold me-2"></i>Prime location in Yola city centre</li>
+          <li><i class="bi bi-check-circle-fill text-gold me-2"></i>30+ elegantly furnished rooms & suites</li>
+          <li><i class="bi bi-check-circle-fill text-gold me-2"></i>Conference & event facilities</li>
+          <li><i class="bi bi-check-circle-fill text-gold me-2"></i>Authentic Nigerian & continental cuisine</li>
+        </ul>
+        <a href="{% url 'pages:about' %}" class="btn btn-gold mt-4">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Attractions -->
+<section class="attractions py-6">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <p class="section-eyebrow">Explore</p>
+      <h2 class="section-title">Discover Adamawa State</h2>
+      <p class="section-subtitle text-muted">A land of diverse landscapes, rich culture and warm people</p>
+    </div>
+    <div class="row g-4">
+      {% for name, icon, desc in attraction_list %}
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi {{ icon }}"></i></div>
+            <h6>{{ name }}</h6>
+            <p class="small text-muted">{{ desc }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi bi-water"></i></div>
+            <h6>Kiri Dam & Lake</h6>
+            <p class="small text-muted">A stunning reservoir offering fishing, boating and scenic views.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi bi-mountain"></i></div>
+            <h6>Mandara Mountains</h6>
+            <p class="small text-muted">Breathtaking volcanic mountains forming the Nigeria-Cameroon border.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi bi-globe-americas"></i></div>
+            <h6>Sukur Cultural Landscape</h6>
+            <p class="small text-muted">Nigeria's first UNESCO World Heritage Site — an ancient hilltop kingdom.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi bi-droplet"></i></div>
+            <h6>Lamurde Hot Springs</h6>
+            <p class="small text-muted">Natural therapeutic hot springs renowned for their healing properties.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi bi-tree"></i></div>
+            <h6>River Benue</h6>
+            <p class="small text-muted">One of Nigeria's major rivers — serene riverbanks perfect for relaxation.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="attraction-card">
+            <div class="attraction-icon"><i class="bi bi-trophy"></i></div>
+            <h6>Adamawa Cultural Festival</h6>
+            <p class="small text-muted">Annual celebration of the diverse cultures, music, and traditions of the state.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section py-6 text-center">
+  <div class="container">
+    <h2 class="cta-title">Ready to Experience Adamawa?</h2>
+    <p class="cta-subtitle text-muted mt-2">Book your stay today and enjoy world-class hospitality in the heart of northern Nigeria.</p>
+    <div class="mt-4">
+      {% if user.is_authenticated %}
+        <a href="{% url 'rooms:list' %}" class="btn btn-gold btn-lg px-5">Book a Room</a>
+      {% else %}
+        <a href="{% url 'accounts:register' %}" class="btn btn-gold btn-lg px-5 me-3">Get Started</a>
+        <a href="{% url 'rooms:list' %}" class="btn btn-outline-gold btn-lg px-5">Browse Rooms</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

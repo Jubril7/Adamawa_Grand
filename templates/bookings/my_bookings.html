@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings — Adamawa Grand Hotel{% endblock %}
+
+{% block content %}
+<section class="py-6">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+      <div>
+        <p class="section-eyebrow">Account</p>
+        <h2 class="page-title">My Bookings</h2>
+      </div>
+      <a href="{% url 'rooms:list' %}" class="btn btn-gold">
+        <i class="bi bi-plus me-1"></i>New Booking
+      </a>
+    </div>
+
+    {% if bookings %}
+      <div class="bookings-list">
+        {% for booking in bookings %}
+          <div class="booking-row">
+            <div class="booking-row-image">
+              {% if booking.room.image %}
+                <img src="{{ booking.room.image.url }}" alt="Room {{ booking.room.room_number }}">
+              {% else %}
+                <div class="booking-row-placeholder"><i class="bi bi-building"></i></div>
+              {% endif %}
+            </div>
+            <div class="booking-row-info">
+              <h6 class="mb-1">Room {{ booking.room.room_number }} — {{ booking.room.room_type }}</h6>
+              <div class="booking-dates text-muted small">
+                <span><i class="bi bi-calendar-event me-1"></i>{{ booking.check_in_date|date:"D, d M Y" }}</span>
+                <span class="mx-2">&rarr;</span>
+                <span>{{ booking.check_out_date|date:"D, d M Y" }}</span>
+                <span class="ms-2">({{ booking.num_nights }} night{{ booking.num_nights|pluralize }})</span>
+              </div>
+              <div class="mt-1 text-muted small">
+                <i class="bi bi-people me-1"></i>{{ booking.num_guests }} guest{{ booking.num_guests|pluralize }}
+              </div>
+            </div>
+            <div class="booking-row-status">
+              <span class="status-badge status-{{ booking.status }}">{{ booking.get_status_display }}</span>
+            </div>
+            <div class="booking-row-price">
+              <span class="fw-semibold">₦{{ booking.total_price|floatformat:"0" }}</span>
+            </div>
+            <div class="booking-row-actions">
+              <a href="{% url 'bookings:detail' booking.pk %}" class="btn btn-sm btn-outline-secondary">View</a>
+              {% if booking.can_cancel %}
+                <a href="{% url 'bookings:cancel' booking.pk %}" class="btn btn-sm btn-outline-danger ms-1">Cancel</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state text-center py-6">
+        <i class="bi bi-calendar-x display-4 text-muted"></i>
+        <h5 class="mt-3">No bookings yet</h5>
+        <p class="text-muted">You haven't made any bookings. Start exploring our rooms.</p>
+        <a href="{% url 'rooms:list' %}" class="btn btn-gold mt-2">Browse Rooms</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

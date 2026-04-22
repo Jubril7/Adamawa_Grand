@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact Us — Adamawa Grand Hotel{% endblock %}
+
+{% block content %}
+<section class="page-hero py-6">
+  <div class="container">
+    <p class="section-eyebrow">Get In Touch</p>
+    <h1 class="page-title">Contact Us</h1>
+    <p class="lead text-muted mt-2">We'd love to hear from you. Reach out to our team anytime.</p>
+  </div>
+</section>
+
+<section class="py-6">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-7">
+        <div class="form-card">
+          <h4 class="mb-4">Send Us a Message</h4>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-gold px-5 mt-2">Send Message</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="contact-info-card p-4">
+          <h5 class="mb-4">Find Us</h5>
+          <ul class="contact-list">
+            <li>
+              <i class="bi bi-geo-alt-fill text-gold"></i>
+              <div>
+                <strong>Address</strong>
+                <p class="text-muted small mb-0">15 Ribadu Road, Yola<br>Adamawa State, Nigeria</p>
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-telephone-fill text-gold"></i>
+              <div>
+                <strong>Phone</strong>
+                <p class="text-muted small mb-0">+234 803 000 0000<br>+234 806 000 0000</p>
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-envelope-fill text-gold"></i>
+              <div>
+                <strong>Email</strong>
+                <p class="text-muted small mb-0">info@adamawagrand.com<br>reservations@adamawagrand.com</p>
+              </div>
+            </li>
+            <li>
+              <i class="bi bi-clock-fill text-gold"></i>
+              <div>
+                <strong>Front Desk Hours</strong>
+                <p class="text-muted small mb-0">Open 24 Hours, 7 Days a Week</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

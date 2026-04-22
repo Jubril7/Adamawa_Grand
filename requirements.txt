@@ -1,0 +1,6 @@
+Django==4.2.21
+Pillow==11.2.1
+python-decouple==3.8
+django-crispy-forms==2.6
+crispy-bootstrap5==2026.3
+whitenoise==6.9.0

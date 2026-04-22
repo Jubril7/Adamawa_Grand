@@ -1,0 +1,55 @@
+<footer class="footer mt-auto">
+  <div class="footer-top py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="footer-brand">Adamawa Grand Hotel & Suites</h5>
+          <p class="text-muted small mt-2">
+            Experience luxury and comfort in the heart of Yola, Adamawa State, Nigeria.
+            Your home away from home.
+          </p>
+          <div class="social-links mt-3">
+            <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-6">
+          <h6 class="footer-heading">Quick Links</h6>
+          <ul class="footer-links">
+            <li><a href="{% url 'pages:home' %}">Home</a></li>
+            <li><a href="{% url 'rooms:list' %}">Our Rooms</a></li>
+            <li><a href="{% url 'pages:about' %}">About Us</a></li>
+            <li><a href="{% url 'pages:contact' %}">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-6">
+          <h6 class="footer-heading">Explore Adamawa</h6>
+          <ul class="footer-links">
+            <li><a href="#">Kiri Dam & Lake</a></li>
+            <li><a href="#">Mandara Mountains</a></li>
+            <li><a href="#">Sukur Cultural Landscape</a></li>
+            <li><a href="#">River Benue</a></li>
+            <li><a href="#">Lamurde Hot Springs</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h6 class="footer-heading">Contact Us</h6>
+          <ul class="footer-contact">
+            <li><i class="bi bi-geo-alt"></i> 15 Ribadu Road, Yola, Adamawa State, Nigeria</li>
+            <li><i class="bi bi-telephone"></i> +234 803 000 0000</li>
+            <li><i class="bi bi-envelope"></i> info@adamawagrand.com</li>
+            <li><i class="bi bi-clock"></i> 24/7 Front Desk</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom py-3">
+    <div class="container text-center">
+      <small class="text-muted">
+        &copy; {% now "Y" %} Adamawa Grand Hotel & Suites. All rights reserved. Yola, Adamawa State, Nigeria.
+      </small>
+    </div>
+  </div>
+</footer>
